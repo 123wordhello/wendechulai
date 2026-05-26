@@ -39,6 +39,12 @@ export function Header({ showNav = true }: HeaderProps) {
             >
               训练体系
             </Link>
+            <Link
+              href="/admin/cards"
+              className="text-gray-400 hover:text-brand-600 transition-colors hidden md:inline"
+            >
+              内容管理
+            </Link>
           </nav>
         )}
       </div>

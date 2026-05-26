@@ -130,6 +130,28 @@ lib/
 | `/result` | 本次能力标签与总结 |
 | `/map` | 12 项能力进度（mock） |
 
+## 本地内容管理（第二阶段）
+
+| 模块 | 路径 | 作用 |
+|------|------|------|
+| 质检 | `lib/content/validation.ts` | 必填项与步骤数检查 |
+| 规范化 | `lib/content/normalize.ts` | JSON 导入解析与字段兼容 |
+| 统计 / 缺口 | `lib/content/stats.ts` | 分布统计与「内容不足」提示 |
+| 模板 / 导出 | `lib/content/card-template.ts` | 空卡、合并、下载 JSON |
+| 管理页 | `/admin/cards` | 编辑、预览、导入、导出 |
+
+**存储策略（当前）：**
+
+1. **内置库**：`data/cards/batch-*.ts` → 构建时打包，默认 30 张。
+2. **运行库**：浏览器 `localStorage`（`wendechulai_cards_v2`）；有则覆盖内置，无则用内置。
+3. **扩展至数千张**：批量 JSON 导入 → localStorage；或未来改为静态 `public/content/*.json` + 构建脚本合并。
+
+**缺口阈值**（`lib/content/stats.ts` → `GAP_THRESHOLDS`）：
+
+- 能力 × Level、场景 × Level：各少于 2 张提示
+- 单能力 / 单场景总数：少于 3 张提示
+- 单 Level 总数：少于 4 张提示
+
 ## 后续接入 AI
 
 - `finalPrompts` 可由模型根据 `reflectionQuestion`、`transferTask` 与答题记录生成，但结构保持不变。
